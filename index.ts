@@ -46,8 +46,8 @@ export function iterable_contains<T>( arr : Iterable<T>, value : T | MatcherCall
     return false;
 }
 
-export function *iterable_sort<T>(arr : Iterable<T>, fnSort : (first : T, second : T) => number) : Iterable<T> {
-    return [...arr].sort(fnSort).entries();
+export function iterable_sort<T>(arr : Iterable<T>, fnSort : (first : T, second : T) => number) : Iterable<T> {
+    return [...arr].sort(fnSort);
 }
 
 export function *iterable_map<T, U>(arr : Iterable<T>, fnMap : (value : T) => U) : Iterable<U> {
