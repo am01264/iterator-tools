@@ -3,7 +3,8 @@
         "module": "commonjs",
         "target": "es6",
         "outDir": "lib/",
-        "inlineSourceMap": true
+        "inlineSourceMap": true,
+        "declaration": true
     },
     "exclude": [
         "node_modules",
