@@ -4,7 +4,8 @@
         "target": "es6",
         "outDir": "lib/",
         "inlineSourceMap": true,
-        "declaration": true
+        "declaration": true,
+        "declarationDir": "lib/",
     },
     "exclude": [
         "node_modules",
