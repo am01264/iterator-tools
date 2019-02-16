@@ -227,7 +227,14 @@ export class StreamFromIterable<T> extends Readable {
 
     _read() {
 
-        const result = this.iterator.next();
+        let result : IteratorResult<T>;
+
+        try {
+            result = this.iterator.next();
+        } catch (err) {
+            this.emit('error', err);
+            return;
+        }
 
         if (result.value !== void 0) {
             this.push(result.value);
