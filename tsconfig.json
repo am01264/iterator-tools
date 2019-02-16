@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "outDir": "lib/",
+        "sourceRoot": "src/",
         "inlineSourceMap": true,
         "declaration": true,
         "declarationDir": "lib/",
