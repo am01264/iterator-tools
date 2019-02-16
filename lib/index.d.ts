@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Stream, ReadableOptions } from 'stream';
+import { Readable, ReadableOptions } from 'stream';
 declare type MatcherCallback<T> = (item: T) => boolean;
 export declare function iterable_find<T>(arr: Iterable<T>, value: T | MatcherCallback<T>): T;
 export declare function iterable_contains<T>(arr: Iterable<T>, value: T | MatcherCallback<T>): boolean;
@@ -18,10 +18,11 @@ export declare function iterable_some<T>(arr: Iterable<T>, fnTest: (value: T) =>
  * @param count The number of items to take
  */
 export declare function iterable_take<T>(arr: Iterable<T>, count: number): IterableIterator<T>;
-export default function wrap_it<T>(it: Iterable<T>): It<T>;
+export default function iterable_wrap<T>(it: Iterable<T>): It<T>;
 export declare class It<T> {
     private arr;
     constructor(arr: Iterable<T>);
+    contains(value: T | MatcherCallback<T>): boolean;
     concat(second: Iterable<T>): this;
     every(fnTest: (value: T) => boolean): boolean;
     some(fnTest: (value: T) => boolean): boolean;
@@ -38,10 +39,9 @@ export declare class It<T> {
     toString(): string;
     toStream(options?: ReadableOptions): StreamFromIterable<T>;
 }
-export declare class StreamFromIterable<T> extends Stream.Readable {
-    private iterable;
+export declare class StreamFromIterable<T> extends Readable {
     private iterator;
     constructor(it: Iterable<T>, options?: ReadableOptions);
-    _read(_size: number): void;
+    _read(): void;
 }
 export {};

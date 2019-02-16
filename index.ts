@@ -1,5 +1,5 @@
 
-import { Stream, ReadableOptions } from 'stream';
+import { Readable, ReadableOptions } from 'stream';
 import { stat } from 'fs';
 
 type MatcherCallback<T> = ( item : T ) => boolean;
@@ -129,7 +129,7 @@ export function *iterable_take<T>( arr : Iterable<T>, count : number) {
     
 }
 
-export default function wrap_it<T>( it : Iterable<T> ) {
+export default function iterable_wrap<T>( it : Iterable<T> ) {
     return new It(it);
 }
 
@@ -140,6 +140,11 @@ export class It<T> {
     constructor(arr : Iterable<T>) {
         this.arr = arr;
     }
+
+    contains( value : T | MatcherCallback<T>) {
+        return iterable_contains(this.arr, value);
+    }
+    
 
     concat(second : Iterable<T>) {
         this.arr = iterable_concat(this.arr, second);
@@ -211,26 +216,22 @@ export class It<T> {
     }
 }
 
-export class StreamFromIterable<T> extends Stream.Readable {
+export class StreamFromIterable<T> extends Readable {
     
-    private iterable : Iterable<T>
     private iterator : Iterator<T>
 
     constructor( it : Iterable<T>, options? : ReadableOptions) {
         super(options)
-        this.iterable = it;
         this.iterator = it[Symbol.iterator]();
     }
 
-    _read( _size : number ) {
+    _read() {
 
         const result = this.iterator.next();
 
         if (result.value !== void 0) {
             this.push(result.value);
         }
-
-        throw new Error();
 
         if (result.done) {
             this.push(null)
