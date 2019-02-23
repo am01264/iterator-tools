@@ -45,3 +45,4 @@ export declare class StreamFromIterable<T> extends Readable {
     _read(): void;
 }
 export {};
+//# sourceMappingURL=index.d.ts.map
