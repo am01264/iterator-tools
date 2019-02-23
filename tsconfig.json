@@ -6,7 +6,7 @@
         "sourceRoot": "src/",
         "inlineSourceMap": true,
         "declaration": true,
-        "declarationDir": "lib/",
+        "declarationMap": true,
     },
     "exclude": [
         "node_modules",
